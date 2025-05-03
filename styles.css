@@ -1062,3 +1062,80 @@ nav ul li a.active::after {
     font-size: 20px;
   }
 }
+
+/*  */
+/* Add these pagination styles to your styles.css file */
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  gap: 8px;
+  width: 100%;
+}
+
+.page-btn {
+  min-width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  background-color: white;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.page-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.page-btn:hover:not(:disabled) {
+  background-color: var(--medium-bg);
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ellipsis {
+  margin: 0 4px;
+}
+
+.prev-page, .next-page {
+  font-size: 12px;
+}
+
+/* No products message */
+.no-products {
+  text-align: center;
+  padding: 40px;
+  color: var(--light-text);
+  width: 100%;
+  grid-column: 1 / -1;
+}
+
+/* Responsive pagination */
+@media screen and (max-width: 576px) {
+  .pagination {
+    flex-wrap: wrap;
+  }
+  
+  .page-btn {
+    min-width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+  
+  .ellipsis {
+    display: none;
+  }
+}
