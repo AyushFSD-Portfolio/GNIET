@@ -426,3 +426,96 @@ document.addEventListener('DOMContentLoaded', () => {
   displayProducts();
   updateCart();
 });
+
+
+
+ // Carousel Images
+ const carouselImages = [
+  'https://www.shutterstock.com/image-photo/spring-summer-fashion-high-model-260nw-2464715499.jpg',  // Fashion model with elegant clothing
+  'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3VtbWVyfGVufDB8fDB8fHww',  // Summer collection
+  'https://www.menswearr.com/cdn/shop/articles/business-professional-dress-code.webp?v=1704762039'   // Professional business attire
+];
+
+// Set background images for slides
+const slides = document.querySelectorAll('.hero-slide');
+slides.forEach((slide, index) => {
+  slide.style.backgroundImage = `url('${carouselImages[index]}')`;
+});
+
+// Carousel functionality
+const carouselDots = document.querySelectorAll('.carousel-dot');
+const prevSlide = document.getElementById('prevSlide');
+const nextSlide = document.getElementById('nextSlide');
+let currentSlide = 0;
+let autoSlideInterval;
+
+// Function to show a specific slide
+function showSlide(slideIndex) {
+  // Hide all slides
+  slides.forEach(slide => {
+      slide.classList.remove('active');
+  });
+  
+  // Remove active class from all dots
+  carouselDots.forEach(dot => {
+      dot.classList.remove('active');
+  });
+  
+  // Show the selected slide and activate its dot
+  slides[slideIndex].classList.add('active');
+  carouselDots[slideIndex].classList.add('active');
+  
+  // Update current slide
+  currentSlide = slideIndex;
+}
+
+// Function to show the next slide
+function nextSlideFunc() {
+  let nextIndex = currentSlide + 1;
+  if (nextIndex >= slides.length) {
+      nextIndex = 0;
+  }
+  showSlide(nextIndex);
+}
+
+// Function to show the previous slide
+function prevSlideFunc() {
+  let prevIndex = currentSlide - 1;
+  if (prevIndex < 0) {
+      prevIndex = slides.length - 1;
+  }
+  showSlide(prevIndex);
+}
+
+// Add event listeners to dots
+carouselDots.forEach((dot, index) => {
+  dot.addEventListener('click', () => {
+      showSlide(index);
+      resetAutoSlide(); // Reset the auto-slide timer when manually changing slides
+  });
+});
+
+// Add event listeners to arrows
+prevSlide.addEventListener('click', () => {
+  prevSlideFunc();
+  resetAutoSlide();
+});
+
+nextSlide.addEventListener('click', () => {
+  nextSlideFunc();
+  resetAutoSlide();
+});
+
+// Function to start auto sliding
+function startAutoSlide() {
+  autoSlideInterval = setInterval(nextSlideFunc, 5000); // Change slide every 5 seconds
+}
+
+// Function to reset auto sliding
+function resetAutoSlide() {
+  clearInterval(autoSlideInterval);
+  startAutoSlide();
+}
+
+// Start auto sliding when the page loads
+startAutoSlide();
